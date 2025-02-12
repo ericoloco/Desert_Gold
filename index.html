@@ -588,7 +588,7 @@
     function showCombatOptionsOnline() {
       const container = document.getElementById('action-buttons');
       container.innerHTML = "";
-      // Solo se muestran botones si es tu turno (según playerIndex)
+      // Mostrar botones solo si es tu turno (según playerIndex)
       if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
         const current = (currentPlayer === 1) ? player1 : player2;
         const allowedActions = [];
@@ -609,6 +609,7 @@
               current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
               if (Math.random() < current.currentSuicideChance) {
                 turnActions[playerIndex] = { action: "suicidarse", bulletsSpent: 1 };
+                container.innerHTML = "Esperando acción del oponente...";
                 socket.emit('playerAction', { 
                   room: roomId, 
                   nickname,
@@ -619,8 +620,8 @@
                 return;
               }
             }
-            // Guarda la acción usando el índice correcto (playerIndex)
             turnActions[playerIndex] = { action: action, bulletsSpent: 1 };
+            container.innerHTML = "Esperando acción del oponente...";
             socket.emit('playerAction', { 
               room: roomId, 
               nickname,
@@ -893,4 +894,5 @@
   </script>
 </body>
 </html>
+
 
