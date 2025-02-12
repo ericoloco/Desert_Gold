@@ -409,16 +409,15 @@
         player2Character = data.player2Char;
         startCombatOnline();
       });
-     socket.on('receivePlayerAction', (data) => {
-  if (data.nickname !== nickname) {
-    // Determinar el índice opuesto
-    let remoteIndex = (playerIndex === 1) ? 2 : 1;
-    turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
-    if (turnActions[playerIndex] && turnActions[remoteIndex]) {
-      resolveTurnOnline();
-    }
-  }
-});
+      socket.on('receivePlayerAction', (data) => {
+        if (data.nickname !== nickname) {
+          let remoteIndex = (playerIndex === 1) ? 2 : 1;
+          turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
+          if (turnActions[playerIndex] && turnActions[remoteIndex]) {
+            resolveTurnOnline();
+          }
+        }
+      });
       showView('main-menu'); // Mostrar pantalla de espera o similar
     });
     document.getElementById('btn-toggle-menu-music').addEventListener('click', function() {
@@ -502,12 +501,9 @@
         lastAction: null,
         currentSuicideChance: (player2Character === "Kurt Cobain") ? 0.25 : 0
       };
-     turnActions = { 1: null, 2: null };
-if (gameMode === "online") {
-  currentPlayer = (currentPlayer === 1) ? 2 : 1;
-} else {
-  currentPlayer = 1;
-}
+      turnActions = { 1: null, 2: null };
+      // Para el modo local, se reinicia el turno a 1
+      currentPlayer = 1;
       updateScoreboard();
       updateCurrentTurnInfo();
       updateBackgroundMusic("combat");
@@ -540,7 +536,8 @@ if (gameMode === "online") {
         currentSuicideChance: (player2Character === "Kurt Cobain") ? 0.25 : 0
       };
       turnActions = { 1: null, 2: null };
-      currentPlayer = 1; // Por simplicidad, se asigna el turno a player1
+      // En modo online, se asume que el turno inicial es el del jugador local (según playerIndex)
+      currentPlayer = playerIndex;
       updateScoreboard();
       updateCurrentTurnInfo();
       updateBackgroundMusic("combat");
@@ -588,56 +585,56 @@ if (gameMode === "online") {
     /*************************************
      * OPCIONES DE COMBATE (ONLINE)
      *************************************/
-function showCombatOptionsOnline() {
-  const container = document.getElementById('action-buttons');
-  container.innerHTML = "";
-  // Solo se muestran botones si es tu turno (según playerIndex)
-  if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
-    const current = (currentPlayer === 1) ? player1 : player2;
-    const allowedActions = [];
-    if (current.bullets > 0) { allowedActions.push("disparar"); }
-    if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
-    if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
-    if (current.lastAction !== "defender") { allowedActions.push("defender"); }
-    // Si el personaje es Amongolito, añade la acción "sus"
-    if (current.character === "Amongolito") { allowedActions.push("sus"); }
-    
-    allowedActions.forEach(action => {
-      const btn = document.createElement('button');
-      btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
-      btn.addEventListener('click', () => {
-        // Si el personaje es Kurt Cobain y la acción es disparar, aplica su lógica especial
-        if (current.character === "Kurt Cobain" && action === "disparar") {
-          current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
-          if (Math.random() < current.currentSuicideChance) {
-            turnActions[playerIndex] = { action: "suicidarse", bulletsSpent: 1 };
+    function showCombatOptionsOnline() {
+      const container = document.getElementById('action-buttons');
+      container.innerHTML = "";
+      // Solo se muestran botones si es tu turno (según playerIndex)
+      if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
+        const current = (currentPlayer === 1) ? player1 : player2;
+        const allowedActions = [];
+        if (current.bullets > 0) { allowedActions.push("disparar"); }
+        if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
+        if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
+        if (current.lastAction !== "defender") { allowedActions.push("defender"); }
+        // Añadir acción "sus" para Amongolito
+        if (current.character === "Amongolito") { allowedActions.push("sus"); }
+        
+        allowedActions.forEach(action => {
+          const btn = document.createElement('button');
+          btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
+          btn.addEventListener('click', () => {
+            // Limitar a una acción por turno: si ya se envió, no hacer nada.
+            if (turnActions[playerIndex] !== null) return;
+            if (current.character === "Kurt Cobain" && action === "disparar") {
+              current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
+              if (Math.random() < current.currentSuicideChance) {
+                turnActions[playerIndex] = { action: "suicidarse", bulletsSpent: 1 };
+                socket.emit('playerAction', { 
+                  room: roomId, 
+                  nickname,
+                  action: "suicidarse",
+                  bulletsSpent: 1,
+                  playerIndex 
+                });
+                return;
+              }
+            }
+            // Guarda la acción usando el índice correcto (playerIndex)
+            turnActions[playerIndex] = { action: action, bulletsSpent: 1 };
             socket.emit('playerAction', { 
               room: roomId, 
               nickname,
-              action: "suicidarse",
+              action: action,
               bulletsSpent: 1,
-              playerIndex 
+              playerIndex
             });
-            return;
-          }
-        }
-        // Guarda la acción usando el índice correcto (playerIndex)
-        turnActions[playerIndex] = { action: action, bulletsSpent: 1 };
-        socket.emit('playerAction', { 
-          room: roomId, 
-          nickname,
-          action: action,
-          bulletsSpent: 1,
-          playerIndex
+          });
+          container.appendChild(btn);
         });
-      });
-      container.appendChild(btn);
-    });
-  } else {
-    container.textContent = "Esperando acción del oponente...";
-  }
-}
-
+      } else {
+        container.textContent = "Esperando acción del oponente...";
+      }
+    }
 
     /*************************************
      * OPCIONES DE COMBATE (LOCAL)
@@ -656,6 +653,8 @@ function showCombatOptionsOnline() {
         const btn = document.createElement('button');
         btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
         btn.addEventListener('click', () => {
+          // Limitar a una acción por turno
+          if (turnActions[currentPlayer] !== null) return;
           if (current.character === "Kurt Cobain" && action === "disparar") {
             current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
             if (Math.random() < current.currentSuicideChance) {
@@ -690,140 +689,134 @@ function showCombatOptionsOnline() {
     /*************************************
      * RESOLUCIÓN DEL TURNO (LOCAL)
      *************************************/
-function resolveTurn() {
-  const a1Obj = turnActions[1];
-  const a2Obj = turnActions[2];
-  const a1 = a1Obj.action, a2 = a2Obj.action;
-  const b1 = a1Obj.bulletsSpent, b2 = a2Obj.bulletsSpent;
-  let outcomeMessage = "";
+    function resolveTurn() {
+      const a1Obj = turnActions[1];
+      const a2Obj = turnActions[2];
+      const a1 = a1Obj.action, a2 = a2Obj.action;
+      const b1 = a1Obj.bulletsSpent, b2 = a2Obj.bulletsSpent;
+      let outcomeMessage = "";
 
-  // Descontar balas
-  if (a1 === "disparar" || a1 === "suicidarse") {
-    player1.bullets = Math.max(0, player1.bullets - b1);
-  }
-  if (a2 === "disparar" || a2 === "suicidarse") {
-    player2.bullets = Math.max(0, player2.bullets - b2);
-  }
+      if (a1 === "disparar" || a1 === "suicidarse") { player1.bullets = Math.max(0, player1.bullets - b1); }
+      if (a2 === "disparar" || a2 === "suicidarse") { player2.bullets = Math.max(0, player2.bullets - b2); }
 
-  // Lógica de Amongolito vs suicidio (incluye la acción "sus")
-  if (player1.character === "Amongolito" && a2 === "suicidarse") {
-    if (a1 === "sus") {
-      outcomeMessage = `${player1.name} usó SUS y se protegió del suicidio de ${player2.name}. ¡Gana el turno!`;
-    } else {
-      outcomeMessage = `${player2.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
-      gameOver = true;
-    }
-  } else if (player2.character === "Amongolito" && a1 === "suicidarse") {
-    if (a2 === "sus") {
-      outcomeMessage = `${player2.name} usó SUS y se protegió del suicidio de ${player1.name}. ¡Gana el turno!`;
-    } else {
-      outcomeMessage = `${player1.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
-      gameOver = true;
-    }
-  } else if(a1 === "suicidarse" && a2 === "suicidarse") {
-    outcomeMessage = "Ambos se suicidaron. ¡Empate!";
-    gameOver = true;
-  } else if(a1 === "suicidarse" && a2 === "defender") {
-    outcomeMessage = `${player1.name} se suicidó contra la defensa y gana.`;
-    gameOver = true;
-  } else if(a2 === "suicidarse" && a1 === "defender") {
-    outcomeMessage = `${player2.name} se suicidó contra la defensa y gana.`;
-    gameOver = true;
-  } else if(a1 === "suicidarse" && a2 !== "defender") {
-    outcomeMessage = `${player1.name} se suicidó y pierde. ${player2.name} gana.`;
-    gameOver = true;
-  } else if(a2 === "suicidarse" && a1 !== "defender") {
-    outcomeMessage = `${player2.name} se suicidó y pierde. ${player1.name} gana.`;
-    gameOver = true;
-  }
+      // Lógica de Amongolito vs suicidio (incluye la acción "sus")
+      if (player1.character === "Amongolito" && a2 === "suicidarse") {
+        if (a1 === "sus") {
+          outcomeMessage = `${player1.name} usó SUS y se protegió del suicidio de ${player2.name}. ¡Gana el turno!`;
+        } else {
+          outcomeMessage = `${player2.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
+          gameOver = true;
+        }
+      } else if (player2.character === "Amongolito" && a1 === "suicidarse") {
+        if (a2 === "sus") {
+          outcomeMessage = `${player2.name} usó SUS y se protegió del suicidio de ${player1.name}. ¡Gana el turno!`;
+        } else {
+          outcomeMessage = `${player1.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
+          gameOver = true;
+        }
+      } else if(a1 === "suicidarse" && a2 === "suicidarse") {
+        outcomeMessage = "Ambos se suicidaron. ¡Empate!";
+        gameOver = true;
+      } else if(a1 === "suicidarse" && a2 === "defender") {
+        outcomeMessage = `${player1.name} se suicidó contra la defensa y gana.`;
+        gameOver = true;
+      } else if(a2 === "suicidarse" && a1 === "defender") {
+        outcomeMessage = `${player2.name} se suicidó contra la defensa y gana.`;
+        gameOver = true;
+      } else if(a1 === "suicidarse" && a2 !== "defender") {
+        outcomeMessage = `${player1.name} se suicidó y pierde. ${player2.name} gana.`;
+        gameOver = true;
+      } else if(a2 === "suicidarse" && a1 !== "defender") {
+        outcomeMessage = `${player2.name} se suicidó y pierde. ${player1.name} gana.`;
+        gameOver = true;
+      }
 
-  if (!gameOver) {
-    if(a1 === "disparar") {
-      if(a2 !== "defender") {
-        player2.health--;
-        outcomeMessage += `${player1.name} disparó y dañó a ${player2.name}. `;
+      if (!gameOver) {
+        if(a1 === "disparar") {
+          if(a2 !== "defender") {
+            player2.health--;
+            outcomeMessage += `${player1.name} disparó y dañó a ${player2.name}. `;
+          } else {
+            outcomeMessage += `${player1.name} disparó, pero ${player2.name} se defendió. `;
+          }
+        }
+        if(a2 === "disparar") {
+          if(a1 !== "defender") {
+            player1.health--;
+            outcomeMessage += `${player2.name} disparó y dañó a ${player1.name}. `;
+          } else {
+            outcomeMessage += `${player2.name} disparó, pero ${player1.name} se defendió. `;
+          }
+        }
+        if(a1 === "recargar") {
+          if (player1.bullets < characters[player1.character].initialBullets) {
+            player1.bullets++;
+            outcomeMessage += `${player1.name} recargó y ganó una bala. `;
+          }
+        }
+        if(a2 === "recargar") {
+          if (player2.bullets < characters[player2.character].initialBullets) {
+            player2.bullets++;
+            outcomeMessage += `${player2.name} recargó y ganó una bala. `;
+          }
+        }
+        if(a1 === "defender") {
+          outcomeMessage += `${player1.name} se defendió. `;
+        }
+        if(a2 === "defender") {
+          outcomeMessage += `${player2.name} se defendió. `;
+        }
+      }
+
+      player1.lastAction = a1;
+      player2.lastAction = a2;
+      updateScoreboard();
+      document.getElementById('combat-result').textContent = outcomeMessage;
+
+      if (player1.health <= 0 || player2.health <= 0) {
+        gameOver = true;
+        if(player1.health <= 0 && player2.health <= 0) {
+          outcomeMessage = "¡Ambos han caído! Empate.";
+        } else if(player1.health <= 0) {
+          outcomeMessage = `${player2.name} gana, ¡${player1.name} ha sido derrotado!`;
+        } else {
+          outcomeMessage = `${player1.name} gana, ¡${player2.name} ha sido derrotado!`;
+        }
+        document.getElementById('combat-result').textContent = outcomeMessage;
+      }
+
+      if (gameOver) {
+        if (player1.character === "Kurt Cobain") { player1.currentSuicideChance = 0.25; }
+        if (player2.character === "Kurt Cobain") { player2.currentSuicideChance = 0.25; }
+        if (gameMode === "vs_ai") {
+          iaExperience++;
+          if (outcomeMessage.indexOf(player1.name) !== -1) {
+            botDefensiveBias++;
+          } else if (outcomeMessage.indexOf(player2.name) !== -1) {
+            botDefensiveBias = Math.max(botDefensiveBias - 1, 0);
+          }
+        }
+        setTimeout(() => { showResult(outcomeMessage); }, 1500);
       } else {
-        outcomeMessage += `${player1.name} disparó, pero ${player2.name} se defendió. `;
+        turnActions = { 1: null, 2: null };
+        // En modo online, alterna el turno; en local, reinicia a 1.
+        if (gameMode === "online") {
+          currentPlayer = (currentPlayer === 1) ? 2 : 1;
+        } else {
+          currentPlayer = 1;
+        }
+        player1.defenseActive = false;
+        updateCurrentTurnInfo();
+        if (gameMode === "online") {
+          showCombatOptionsOnline();
+        } else {
+          showCombatOptions();
+        }
+        setTimeout(() => {
+          document.getElementById('combat-result').textContent = "";
+        }, 1500);
       }
     }
-    if(a2 === "disparar") {
-      if(a1 !== "defender") {
-        player1.health--;
-        outcomeMessage += `${player2.name} disparó y dañó a ${player1.name}. `;
-      } else {
-        outcomeMessage += `${player2.name} disparó, pero ${player1.name} se defendió. `;
-      }
-    }
-    if(a1 === "recargar") {
-      if (player1.bullets < characters[player1.character].initialBullets) {
-        player1.bullets++;
-        outcomeMessage += `${player1.name} recargó y ganó una bala. `;
-      }
-    }
-    if(a2 === "recargar") {
-      if (player2.bullets < characters[player2.character].initialBullets) {
-        player2.bullets++;
-        outcomeMessage += `${player2.name} recargó y ganó una bala. `;
-      }
-    }
-    if(a1 === "defender") {
-      outcomeMessage += `${player1.name} se defendió. `;
-    }
-    if(a2 === "defender") {
-      outcomeMessage += `${player2.name} se defendió. `;
-    }
-  }
-
-  player1.lastAction = a1;
-  player2.lastAction = a2;
-  updateScoreboard();
-  document.getElementById('combat-result').textContent = outcomeMessage;
-
-  if (player1.health <= 0 || player2.health <= 0) {
-    gameOver = true;
-    if(player1.health <= 0 && player2.health <= 0) {
-      outcomeMessage = "¡Ambos han caído! Empate.";
-    } else if(player1.health <= 0) {
-      outcomeMessage = `${player2.name} gana, ¡${player1.name} ha sido derrotado!`;
-    } else {
-      outcomeMessage = `${player1.name} gana, ¡${player2.name} ha sido derrotado!`;
-    }
-    document.getElementById('combat-result').textContent = outcomeMessage;
-  }
-
-  if (gameOver) {
-    if (player1.character === "Kurt Cobain") { player1.currentSuicideChance = 0.25; }
-    if (player2.character === "Kurt Cobain") { player2.currentSuicideChance = 0.25; }
-    if (gameMode === "vs_ai") {
-      iaExperience++;
-      if (outcomeMessage.indexOf(player1.name) !== -1) {
-        botDefensiveBias++;
-      } else if (outcomeMessage.indexOf(player2.name) !== -1) {
-        botDefensiveBias = Math.max(botDefensiveBias - 1, 0);
-      }
-    }
-    setTimeout(() => { showResult(outcomeMessage); }, 1500);
-  } else {
-    turnActions = { 1: null, 2: null };
-    // En modo online, alterna el turno; en local, reinicia a 1.
-    if (gameMode === "online") {
-      currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    } else {
-      currentPlayer = 1;
-    }
-    player1.defenseActive = false;
-    updateCurrentTurnInfo();
-    if (gameMode === "online") {
-      showCombatOptionsOnline();
-    } else {
-      showCombatOptions();
-    }
-    setTimeout(() => {
-      document.getElementById('combat-result').textContent = "";
-    }, 1500);
-  }
-}
-
 
     /*************************************
      * RESOLUCIÓN DEL TURNO (ONLINE)
@@ -900,3 +893,4 @@ function resolveTurn() {
   </script>
 </body>
 </html>
+
