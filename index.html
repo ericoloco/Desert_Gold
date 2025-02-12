@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- La etiqueta base hace que las rutas relativas se resuelvan desde la misma carpeta -->
+  <!-- La etiqueta base hace que todas las rutas relativas se resuelvan desde la misma carpeta -->
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Desert Gold</title>
@@ -85,7 +85,7 @@
       h2 { font-size: 1.25rem; }
     }
     
-    /* MODAL DE PERSONAJE Y DE GUÍA */
+    /* MODAL DE PERSONAJE Y GUÍA */
     .modal {
       display: none;
       position: fixed;
@@ -204,10 +204,10 @@
       </ul>
       <p><strong>Mecánica del Combate:</strong> Cada turno, el jugador activo elige entre:</p>
       <ul>
-        <li><strong>Disparar:</strong> Requiere una bala. Si el oponente no se defiende, este recibe daño.</li>
+        <li><strong>Disparar:</strong> Requiere una bala. Si el oponente no se defiende, recibe daño.</li>
         <li><strong>Recargar:</strong> Suma una bala (si no se tiene el máximo).</li>
         <li><strong>Defender:</strong> Protege contra ataques en ese turno.</li>
-        <li><strong>Suicidarse:</strong> Disponible para la mayoría de los personajes (excepto Amongolito), con efectos especiales según el rival.</li>
+        <li><strong>Suicidarse:</strong> Disponible para la mayoría (excepto Amongolito), con efectos especiales según el rival.</li>
         <li><strong>Sus (Amongolito):</strong> Actúa como defensa contra suicidios del rival. Si se activa y el oponente se suicida, Amongolito se protege y gana el turno.</li>
       </ul>
       <p><strong>Estrategias:</strong> Planifica tus turnos, administra tus balas y aprovecha las habilidades especiales de cada personaje.</p>
@@ -221,6 +221,42 @@
   <button id="btn-guide">GUÍA</button>
   
   <script>
+    /*************************************
+     * EVENTOS DEL MODAL DE PERSONAJE
+     *************************************/
+    let currentModalCharacter = "";
+    function showCharacterModal(name) {
+      const char = characters[name];
+      currentModalCharacter = name;
+      document.getElementById('modal-character-name').textContent = name;
+      document.getElementById('modal-character-img').src = char.image;
+      document.getElementById('modal-character-desc').textContent = char.description || "Sin detalles disponibles.";
+      document.getElementById('character-modal').style.display = 'block';
+    }
+    function hideCharacterModal() {
+      document.getElementById('character-modal').style.display = 'none';
+    }
+    function confirmCharacterSelection() {
+      hideCharacterModal();
+      selectCharacterConfirmed(currentModalCharacter);
+    }
+    
+    // Asignar event listeners a los botones del modal de personaje
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btn-confirm-character').addEventListener('click', confirmCharacterSelection);
+      document.getElementById('btn-cancel-character').addEventListener('click', hideCharacterModal);
+    });
+
+    /*************************************
+     * EVENTOS DEL MODAL DE GUÍA
+     *************************************/
+    document.getElementById('btn-guide').addEventListener('click', () => {
+      document.getElementById('guide-modal').style.display = 'block';
+    });
+    document.getElementById('btn-close-guide').addEventListener('click', () => {
+      document.getElementById('guide-modal').style.display = 'none';
+    });
+
     /*************************************
      * VARIABLES PARA MODO ONLINE
      *************************************/
@@ -398,36 +434,6 @@
     document.getElementById('btn-return-main').addEventListener('click', () => { showView('main-menu'); });
 
     /*************************************
-     * EVENTOS DEL MODAL DE PERSONAJE
-     *************************************/
-    let currentModalCharacter = "";
-    function showCharacterModal(name) {
-      const char = characters[name];
-      currentModalCharacter = name;
-      document.getElementById('modal-character-name').textContent = name;
-      document.getElementById('modal-character-img').src = char.image;
-      document.getElementById('modal-character-desc').textContent = char.description || "Sin detalles disponibles.";
-      document.getElementById('character-modal').style.display = 'block';
-    }
-    function hideCharacterModal() {
-      document.getElementById('character-modal').style.display = 'none';
-    }
-    function confirmCharacterSelection() {
-      hideCharacterModal();
-      selectCharacterConfirmed(currentModalCharacter);
-    }
-
-    /*************************************
-     * EVENTOS DEL MODAL DE GUÍA
-     *************************************/
-    document.getElementById('btn-guide').addEventListener('click', () => {
-      document.getElementById('guide-modal').style.display = 'block';
-    });
-    document.getElementById('btn-close-guide').addEventListener('click', () => {
-      document.getElementById('guide-modal').style.display = 'none';
-    });
-
-    /*************************************
      * SELECCIÓN DE PERSONAJES
      *************************************/
     function showCharacterSelection() {
@@ -460,7 +466,7 @@
           showCharacterSelection();
         } else {
           player2Character = name;
-          currentPlayer = 1;
+          currentPlayer = 1; // Reinicia el turno a 1
           startCombatLocal();
         }
       } else if (gameMode === "online") {
@@ -868,8 +874,5 @@
       document.getElementById('main-menu').appendChild(volumeControl);
     }
   </script>
-</body>
-</html>
-
 </body>
 </html>
