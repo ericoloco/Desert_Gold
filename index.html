@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- La etiqueta base hace que todas las rutas relativas se resuelvan desde la misma carpeta -->
+  <!-- La etiqueta base hace que las rutas relativas se resuelvan desde la misma carpeta -->
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Desert Gold</title>
-
-  <!-- Cargar Socket.io desde CDN (para el modo online) -->
+  
+  <!-- Cargar Socket.io (para el modo online) -->
   <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
   
   <style>
@@ -24,6 +24,16 @@
       transition: background-color 0.3s;
     }
     button:hover { background-color: #777; }
+    
+    /* Botón de GUÍA en la esquina inferior izquierda */
+    #btn-guide {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2000;
+      background-color: #444;
+    }
+    
     /* CARTAS DE PERSONAJES */
     .character-card {
       display: inline-block;
@@ -40,15 +50,19 @@
     .character-card:hover { transform: scale(1.05); }
     .character-card img { width: 100%; height: auto; }
     .character-card p { margin: 0.5rem; }
-    /* VISTAS */
+    
+    /* VISTAS: MENÚ, SELECCIÓN, RESULTADO */
     #main-menu, #character-selection, #result { text-align: center; padding: 1rem; }
+    
     /* COMBATE */
     #combat { padding: 1rem; }
+    
     /* Scoreboard */
     #scoreboard {
       display: flex; justify-content: space-around; margin-bottom: 1rem; font-weight: bold;
     }
     #scoreboard div { text-align: center; }
+    
     /* Información del turno */
     #current-turn { text-align: center; margin-bottom: 1rem; }
     #current-turn img {
@@ -56,28 +70,47 @@
     }
     #action-buttons { text-align: center; margin: 1rem 0; }
     #combat-result { text-align: center; margin: 0.5rem 0; font-style: italic; }
+    
     /* Predicción para El Xokas */
     #prediction { text-align: center; margin-bottom: 1rem; font-style: italic; color: #ccc; }
+    
     /* Control de volumen */
     #volume-control { text-align: center; margin-top: 1rem; }
     #volume-control label { margin-right: 0.5rem; }
+    
     /* MEDIA QUERIES */
     @media (max-width: 600px) {
       button { font-size: 0.9rem; padding: 0.5rem 1rem; }
       h1 { font-size: 1.75rem; }
       h2 { font-size: 1.25rem; }
     }
-    /* MODAL DE PERSONAJE */
+    
+    /* MODAL DE PERSONAJE Y DE GUÍA */
     .modal {
-      display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-      width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7);
+      display: none;
+      position: fixed;
+      z-index: 1500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
     }
     .modal-content {
-      background-color: #333; margin: 10% auto; padding: 20px; border: 1px solid #555;
-      width: 90%; max-width: 500px; border-radius: 8px; text-align: center; color: #eee;
+      background-color: #333;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #555;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      text-align: left;
+      color: #eee;
     }
-    .modal-content img { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 1rem; }
-    .modal-buttons { margin-top: 1rem; }
+    .modal-content h2 { text-align: center; }
+    .modal-content p { margin: 0.5rem 0; }
+    .modal-buttons { margin-top: 1rem; text-align: center; }
     .modal-buttons button { margin: 0.5rem; }
   </style>
 </head>
@@ -89,24 +122,22 @@
       <h2>El Tabaco</h2>
       <button id="btn-vs-ai">Combate VS IA</button>
       <button id="btn-duel">Duelo de Fumadores</button>
-      <!-- Modo online: CIGARROS ELECTRÓNICOS -->
+      <!-- Modo Online: CIGARROS ELECTRÓNICOS -->
       <button id="btn-online">CIGARROS ELECTRÓNICOS (Online)</button>
-      <!-- Botón para pausar/reanudar la música -->
       <button id="btn-toggle-menu-music">Pausar Música</button>
-      <!-- Control de volumen -->
       <div id="volume-control">
         <label for="volume-slider">Volumen:</label>
         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
       </div>
     </div>
-
+    
     <!-- SELECCIÓN DE PERSONAJES -->
     <div id="character-selection" class="view">
       <h2 id="selection-header">Selecciona tu Fumador</h2>
       <div id="character-list"></div>
       <button id="btn-back-main">Volver al Menú Principal</button>
     </div>
-
+    
     <!-- PANTALLA DE COMBATE -->
     <div id="combat" class="view">
       <div id="scoreboard">
@@ -130,14 +161,14 @@
       <div id="action-buttons"></div>
       <div id="combat-result"></div>
     </div>
-
+    
     <!-- PANTALLA DE RESULTADO -->
     <div id="result" class="view">
       <h2 id="result-message"></h2>
       <button id="btn-return-main">Volver al Menú Principal</button>
     </div>
   </div>
-
+  
   <!-- MODAL PARA DETALLES DEL PERSONAJE -->
   <div id="character-modal" class="modal">
     <div class="modal-content">
@@ -150,7 +181,45 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- MODAL PARA LA GUÍA DEL JUEGO -->
+  <div id="guide-modal" class="modal">
+    <div class="modal-content">
+      <h2>Guía de Juego - Desert Gold</h2>
+      <p><strong>Introducción:</strong> Bienvenido a <em>Desert Gold</em>, un juego de estrategia y habilidad donde te enfrentarás a la IA, a otro jugador en duelo local o en línea (modo <em>CIGARROS ELECTRÓNICOS</em>). ¡Prepara tu estrategia y demuestra quién es el mejor fumador!</p>
+      <p><strong>Modos de Juego:</strong></p>
+      <ul>
+        <li><strong>Combate VS IA:</strong> Enfréntate a la inteligencia artificial, que mejora su estrategia en cada combate.</li>
+        <li><strong>Duelo de Fumadores (Local):</strong> Dos jugadores se turnan en la misma máquina. Si ambos eligen el mismo personaje, se crean instancias separadas para evitar que las acciones se clonen.</li>
+        <li><strong>CIGARROS ELECTRÓNICOS (Online):</strong> Juega en línea contra otro jugador. Ingresa tu nickname y comparte el enlace de la sala para que el juego comience cuando ambos hayan seleccionado sus personajes.</li>
+      </ul>
+      <p><strong>Selección de Personajes:</strong> Cada personaje tiene habilidades únicas:</p>
+      <ul>
+        <li><strong>Pepe:</strong> Equilibrado y sencillo.</li>
+        <li><strong>Manueh:</strong> Más balas, pero sin defensa.</li>
+        <li><strong>Kurt Cobain:</strong> Con cada disparo, su probabilidad de suicidio aumenta un 25%.</li>
+        <li><strong>El Xokas:</strong> Tiene una alta probabilidad de predecir la acción rival (se muestra en pantalla).</li>
+        <li><strong>Rajoy:</strong> Muy resistente, pero con pocas balas.</li>
+        <li><strong>Amongolito:</strong> No puede suicidarse y ahora tiene la acción <em>sus</em> para protegerse de los suicidios del rival.</li>
+      </ul>
+      <p><strong>Mecánica del Combate:</strong> Cada turno, el jugador activo elige entre:</p>
+      <ul>
+        <li><strong>Disparar:</strong> Requiere una bala. Si el oponente no se defiende, este recibe daño.</li>
+        <li><strong>Recargar:</strong> Suma una bala (si no se tiene el máximo).</li>
+        <li><strong>Defender:</strong> Protege contra ataques en ese turno.</li>
+        <li><strong>Suicidarse:</strong> Disponible para la mayoría de los personajes (excepto Amongolito), con efectos especiales según el rival.</li>
+        <li><strong>Sus (Amongolito):</strong> Actúa como defensa contra suicidios del rival. Si se activa y el oponente se suicida, Amongolito se protege y gana el turno.</li>
+      </ul>
+      <p><strong>Estrategias:</strong> Planifica tus turnos, administra tus balas y aprovecha las habilidades especiales de cada personaje.</p>
+      <div class="modal-buttons">
+        <button id="btn-close-guide">Cerrar Guía</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Botón fijo para abrir la GUÍA -->
+  <button id="btn-guide">GUÍA</button>
+  
   <script>
     /*************************************
      * VARIABLES PARA MODO ONLINE
@@ -196,7 +265,7 @@
       "Amongolito": { 
         image: "amongolito.png", 
         initialBullets: 2, 
-        description: "No puede suicidarse y tiene una mecánica especial impredecible." 
+        description: "No puede suicidarse y tiene una mecánica especial impredecible. Ahora cuenta con la acción 'sus' para protegerse de suicidios." 
       }
     };
 
@@ -273,7 +342,7 @@
       nickname = prompt("Ingresa tu nickname para el modo online:");
       if (!nickname) return;
 
-      // Obtener o generar roomId
+      // Obtener o generar roomId de la URL
       const params = new URLSearchParams(window.location.search);
       roomId = params.get('room');
       if (!roomId) {
@@ -294,11 +363,11 @@
         console.log("Te uniste a la sala:", data.room);
       });
       socket.on('roomReady', (data) => {
-        alert(data.message);
+        alert(data.message); // "Dos jugadores en la sala. Elijan sus personajes."
         showCharacterSelection();
       });
       socket.on('onlineGameStarted', (data) => {
-        playerIndex = data.playerIndex; // 1 o 2 asignado por el servidor
+        playerIndex = data.playerIndex; // 1 o 2
         opponentNickname = data.opponentNickname;
         player1Character = data.player1Char;
         player2Character = data.player2Char;
@@ -312,7 +381,7 @@
           }
         }
       });
-      showView('main-menu'); // Mostrar "Esperando al otro jugador" o similar
+      showView('main-menu'); // Mostrar pantalla de espera o similar
     });
     document.getElementById('btn-toggle-menu-music').addEventListener('click', function() {
       if (document.getElementById('main-menu').classList.contains('active')) {
@@ -329,7 +398,7 @@
     document.getElementById('btn-return-main').addEventListener('click', () => { showView('main-menu'); });
 
     /*************************************
-     * MODAL DE PERSONAJE
+     * EVENTOS DEL MODAL DE PERSONAJE
      *************************************/
     let currentModalCharacter = "";
     function showCharacterModal(name) {
@@ -347,6 +416,16 @@
       hideCharacterModal();
       selectCharacterConfirmed(currentModalCharacter);
     }
+
+    /*************************************
+     * EVENTOS DEL MODAL DE GUÍA
+     *************************************/
+    document.getElementById('btn-guide').addEventListener('click', () => {
+      document.getElementById('guide-modal').style.display = 'block';
+    });
+    document.getElementById('btn-close-guide').addEventListener('click', () => {
+      document.getElementById('guide-modal').style.display = 'none';
+    });
 
     /*************************************
      * SELECCIÓN DE PERSONAJES
@@ -375,20 +454,18 @@
         player2Character = available[Math.floor(Math.random() * available.length)];
         startCombatLocal();
       } else if (gameMode === "duel") {
-        // Corrección para evitar clonación de acciones si ambos eligen el mismo personaje:
         if (currentPlayer === 1) {
           player1Character = name;
           currentPlayer = 2;
           showCharacterSelection();
         } else {
           player2Character = name;
-          currentPlayer = 1; // Reinicia el turno a 1
+          currentPlayer = 1;
           startCombatLocal();
         }
       } else if (gameMode === "online") {
         socket.emit('characterSelected', { room: roomId, nickname, character: name });
-        // Se espera al evento onlineGameStarted
-        showView('main-menu');
+        showView('main-menu'); // Espera al evento onlineGameStarted
       }
     }
 
@@ -398,7 +475,7 @@
     function startCombatLocal() {
       gameOver = false;
       if (gameMode === "vs_ai") { iaExperience++; }
-      // Crea instancias separadas para evitar que se clonen las acciones en caso de personajes iguales
+      // Crear instancias separadas para cada jugador, incluso si eligen el mismo personaje
       player1 = {
         name: player1Character,
         character: player1Character,
@@ -451,8 +528,7 @@
         currentSuicideChance: (player2Character === "Kurt Cobain") ? 0.25 : 0
       };
       turnActions = { 1: null, 2: null };
-      // Para simplificar, asignamos el turno a player1; en una implementación real, el servidor podría decidir
-      currentPlayer = 1;
+      currentPlayer = 1; // Por simplicidad, se asigna el turno a player1
       updateScoreboard();
       updateCurrentTurnInfo();
       updateBackgroundMusic("combat");
@@ -503,7 +579,7 @@
     function showCombatOptionsOnline() {
       const container = document.getElementById('action-buttons');
       container.innerHTML = "";
-      // Solo muestra botones si es el turno del jugador local
+      // Mostrar botones solo si es el turno del jugador local (según playerIndex)
       if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
         const current = (currentPlayer === 1) ? player1 : player2;
         const allowedActions = [];
@@ -511,6 +587,8 @@
         if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
         if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
         if (current.lastAction !== "defender") { allowedActions.push("defender"); }
+        // Añadir acción "sus" para Amongolito
+        if (current.character === "Amongolito") { allowedActions.push("sus"); }
         allowedActions.forEach(action => {
           const btn = document.createElement('button');
           btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
@@ -557,6 +635,7 @@
       if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
       if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
       if (current.lastAction !== "defender") { allowedActions.push("defender"); }
+      if (current.character === "Amongolito") { allowedActions.push("sus"); }
       allowedActions.forEach(action => {
         const btn = document.createElement('button');
         btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
@@ -602,20 +681,26 @@
       const b1 = a1Obj.bulletsSpent, b2 = a2Obj.bulletsSpent;
       let outcomeMessage = "";
 
-      if (a1 === "disparar" || a1 === "suicidarse") {
-        player1.bullets = Math.max(0, player1.bullets - b1);
-      }
-      if (a2 === "disparar" || a2 === "suicidarse") {
-        player2.bullets = Math.max(0, player2.bullets - b2);
-      }
+      if (a1 === "disparar" || a1 === "suicidarse") { player1.bullets = Math.max(0, player1.bullets - b1); }
+      if (a2 === "disparar" || a2 === "suicidarse") { player2.bullets = Math.max(0, player2.bullets - b2); }
 
+      // Amongolito vs suicidio (con la acción "sus")
       if (player1.character === "Amongolito" && a2 === "suicidarse") {
-        outcomeMessage = `${player2.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
-        gameOver = true;
+        if (a1 === "sus") {
+          outcomeMessage = `${player1.name} usó SUS y se protegió del suicidio de ${player2.name}. ¡Gana el turno!`;
+        } else {
+          outcomeMessage = `${player2.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
+          gameOver = true;
+        }
       } else if (player2.character === "Amongolito" && a1 === "suicidarse") {
-        outcomeMessage = `${player1.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
-        gameOver = true;
-      } else if(a1 === "suicidarse" && a2 === "suicidarse") {
+        if (a2 === "sus") {
+          outcomeMessage = `${player2.name} usó SUS y se protegió del suicidio de ${player1.name}. ¡Gana el turno!`;
+        } else {
+          outcomeMessage = `${player1.name} gana, porque Amongolito se asustó y murió al ver el suicidio.`;
+          gameOver = true;
+        }
+      }
+      else if(a1 === "suicidarse" && a2 === "suicidarse") {
         outcomeMessage = "Ambos se suicidaron. ¡Empate!";
         gameOver = true;
       } else if(a1 === "suicidarse" && a2 === "defender") {
@@ -714,10 +799,7 @@
      * RESOLUCIÓN DEL TURNO (ONLINE)
      *************************************/
     function resolveTurnOnline() {
-      // Aquí se implementa la lógica similar a resolveTurn() pero en modo online.
-      // Por ejemplo, podrías invocar la función local si ambas acciones están listas.
       if (turnActions[1] && turnActions[2]) {
-        // Por simplicidad, llamamos a la función local:
         resolveTurn();
       } else {
         alert("Esperando acción del oponente en modo online...");
@@ -757,7 +839,7 @@
         if (Math.random() < 0.05) { possibleActions.push("suicidarse"); }
       }
       const action = possibleActions[Math.floor(Math.random() * possibleActions.length)];
-      turnActions[2] = { action: action, bulletsSpent: 1 };
+      turnActions[2] = { action, bulletsSpent: 1 };
       resolveTurn();
     }
 
@@ -777,7 +859,7 @@
     });
   </script>
   <script>
-    // Si el slider no existe, lo crea dinámicamente
+    // Si no existe el slider, se crea dinámicamente
     if (!document.getElementById('volume-slider')) {
       const volumeControl = document.createElement('div');
       volumeControl.id = "volume-control";
@@ -786,5 +868,8 @@
       document.getElementById('main-menu').appendChild(volumeControl);
     }
   </script>
+</body>
+</html>
+
 </body>
 </html>
