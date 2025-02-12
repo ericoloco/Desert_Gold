@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DesertGoldWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3d046517e40d46cde3941d33c7a068c82449714")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b304e4d97c648d7185e291c4827e55c6ddbf0004")]
 [assembly: System.Reflection.AssemblyProductAttribute("DesertGoldWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DesertGoldWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
