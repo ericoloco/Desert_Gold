@@ -2,58 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- La etiqueta base hace que las rutas relativas se resuelvan desde la misma carpeta -->
+  <!-- Todas las rutas relativas se resuelven desde esta carpeta -->
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Desert Gold</title>
-
-  <!-- Cargar Socket.io (para el modo online) -->
+  
+  <!-- Cargar Socket.io para el modo online -->
   <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
-
+  
   <style>
     /* RESET Y ESTILOS BÁSICOS */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: sans-serif;
-      background-color: #222;
-      color: #eee;
-      line-height: 1.5;
-    }
-    #app {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-    .view {
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background-color: #222; color: #eee; line-height: 1.5; }
+    #app { max-width: 800px; margin: 0 auto; padding: 1rem; }
+    .view { display: none; }
+    .active { display: block; }
+    h1, h2 { text-align: center; margin-bottom: 1rem; }
     button {
-      padding: 0.75rem 1.5rem;
-      margin: 0.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      background-color: #555;
-      color: #eee;
-      cursor: pointer;
+      padding: 0.75rem 1.5rem; margin: 0.5rem; font-size: 1rem;
+      border: none; border-radius: 5px; background-color: #555; color: #eee; cursor: pointer;
       transition: background-color 0.3s;
     }
-    button:hover {
-      background-color: #777;
-    }
-
-    /* Botón de GUÍA en la esquina inferior izquierda */
+    button:hover { background-color: #777; }
+    
+    /* Botón de GUÍA en esquina inferior izquierda */
     #btn-guide {
       position: fixed;
       bottom: 20px;
@@ -61,7 +33,7 @@
       z-index: 2000;
       background-color: #444;
     }
-
+    
     /* CARTAS DE PERSONAJES */
     .character-card {
       display: inline-block;
@@ -75,128 +47,59 @@
       background-color: #333;
       transition: transform 0.2s;
     }
-    .character-card:hover {
-      transform: scale(1.05);
-    }
-    .character-card img {
-      width: 100%;
-      height: auto;
-    }
-    .character-card p {
-      margin: 0.5rem;
-    }
-
+    .character-card:hover { transform: scale(1.05); }
+    .character-card img { width: 100%; height: auto; }
+    .character-card p { margin: 0.5rem; }
+    
     /* VISTAS: MENÚ, SELECCIÓN, RESULTADO */
-    #main-menu, #character-selection, #result {
-      text-align: center;
-      padding: 1rem;
-    }
-
+    #main-menu, #character-selection, #result { text-align: center; padding: 1rem; }
+    
     /* COMBATE */
-    #combat {
-      padding: 1rem;
-    }
-
+    #combat { padding: 1rem; }
+    
     /* Scoreboard */
     #scoreboard {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 1rem;
-      font-weight: bold;
+      display: flex; justify-content: space-around; margin-bottom: 1rem; font-weight: bold;
     }
-    #scoreboard div {
-      text-align: center;
-    }
-
+    #scoreboard div { text-align: center; }
+    
     /* Información del turno */
-    #current-turn {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+    #current-turn { text-align: center; margin-bottom: 1rem; }
     #current-turn img {
-      max-width: 200px;
-      border: 3px solid #555;
-      border-radius: 50%;
-      margin: 0 auto;
-      display: block;
+      max-width: 200px; border: 3px solid #555; border-radius: 50%; margin: 0 auto; display: block;
     }
-    #action-buttons {
-      text-align: center;
-      margin: 1rem 0;
-    }
-    #combat-result {
-      text-align: center;
-      margin: 0.5rem 0;
-      font-style: italic;
-    }
-
+    #action-buttons { text-align: center; margin: 1rem 0; }
+    #combat-result { text-align: center; margin: 0.5rem 0; font-style: italic; }
+    
     /* Predicción para El Xokas */
-    #prediction {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-style: italic;
-      color: #ccc;
-    }
-
+    #prediction { text-align: center; margin-bottom: 1rem; font-style: italic; color: #ccc; }
+    
     /* Control de volumen */
-    #volume-control {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    #volume-control label {
-      margin-right: 0.5rem;
-    }
-
+    #volume-control { text-align: center; margin-top: 1rem; }
+    #volume-control label { margin-right: 0.5rem; }
+    
     /* MEDIA QUERIES */
     @media (max-width: 600px) {
-      button {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-      }
-      h1 {
-        font-size: 1.75rem;
-      }
-      h2 {
-        font-size: 1.25rem;
-      }
+      button { font-size: 0.9rem; padding: 0.5rem 1rem; }
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.25rem; }
     }
-
-    /* MODAL DE PERSONAJE Y GUÍA */
+    
+    /* MODALES */
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 1500;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.7);
+      display: none; position: fixed; z-index: 1500;
+      left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0,0,0,0.7);
     }
     .modal-content {
-      background-color: #333;
-      margin: 10% auto;
-      padding: 20px;
-      border: 1px solid #555;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 8px;
-      text-align: left;
-      color: #eee;
+      background-color: #333; margin: 10% auto; padding: 20px;
+      border: 1px solid #555; width: 90%; max-width: 500px;
+      border-radius: 8px; text-align: left; color: #eee;
     }
-    .modal-content h2 {
-      text-align: center;
-    }
-    .modal-content p {
-      margin: 0.5rem 0;
-    }
-    .modal-buttons {
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .modal-buttons button {
-      margin: 0.5rem;
-    }
+    .modal-content h2 { text-align: center; }
+    .modal-content p { margin: 0.5rem 0; }
+    .modal-buttons { margin-top: 1rem; text-align: center; }
+    .modal-buttons button { margin: 0.5rem; }
   </style>
 </head>
 <body>
@@ -207,7 +110,6 @@
       <h2>El Tabaco</h2>
       <button id="btn-vs-ai">Combate VS IA</button>
       <button id="btn-duel">Duelo de Fumadores</button>
-      <!-- Modo Online: CIGARROS ELECTRÓNICOS -->
       <button id="btn-online">CIGARROS ELECTRÓNICOS (Online)</button>
       <button id="btn-toggle-menu-music">Pausar Música</button>
       <div id="volume-control">
@@ -215,14 +117,14 @@
         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
       </div>
     </div>
-
+    
     <!-- SELECCIÓN DE PERSONAJES -->
     <div id="character-selection" class="view">
       <h2 id="selection-header">Selecciona tu Fumador</h2>
       <div id="character-list"></div>
       <button id="btn-back-main">Volver al Menú Principal</button>
     </div>
-
+    
     <!-- PANTALLA DE COMBATE -->
     <div id="combat" class="view">
       <div id="scoreboard">
@@ -246,15 +148,16 @@
       <div id="action-buttons"></div>
       <div id="combat-result"></div>
     </div>
-
+    
     <!-- PANTALLA DE RESULTADO -->
     <div id="result" class="view">
       <h2 id="result-message"></h2>
       <button id="btn-restart-game">Reiniciar Partida</button>
       <button id="btn-choose-character">Volver a Elegir Personaje</button>
+      <button id="btn-return-menu">Volver a Menú Principal</button>
     </div>
   </div>
-
+  
   <!-- MODAL PARA DETALLES DEL PERSONAJE -->
   <div id="character-modal" class="modal">
     <div class="modal-content">
@@ -267,7 +170,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- MODAL PARA LA GUÍA DEL JUEGO -->
   <div id="guide-modal" class="modal">
     <div class="modal-content">
@@ -277,35 +180,35 @@
       <ul>
         <li><strong>Combate VS IA:</strong> Enfréntate a la inteligencia artificial, que mejora su estrategia en cada combate.</li>
         <li><strong>Duelo de Fumadores (Local):</strong> Dos jugadores se turnan en la misma máquina. Si ambos eligen el mismo personaje, se crean instancias separadas para evitar acciones duplicadas.</li>
-        <li><strong>CIGARROS ELECTRÓNICOS (Online):</strong> Juega en línea contra otro jugador. Ingresa tu nickname y comparte el enlace de la sala para que ambos seleccionen personajes y jueguen un combate remoto.</li>
+        <li><strong>CIGARROS ELECTRÓNICOS (Online):</strong> Juega en línea contra otro jugador. Ingresa tu nickname, comparte el enlace de la sala y, cuando ambos hayan seleccionado personajes, inicia el combate.</li>
       </ul>
-      <p><strong>Selección de Personajes:</strong> Cada personaje tiene habilidades únicas:</p>
+      <p><strong>Personajes:</strong></p>
       <ul>
         <li><strong>Pepe:</strong> Equilibrado y sencillo.</li>
-        <li><strong>Manueh:</strong> Más balas, pero sin defensa (no puede usar “defender”).</li>
+        <li><strong>Manueh:</strong> Más balas, pero no puede usar "defender".</li>
         <li><strong>Kurt Cobain:</strong> Cada disparo aumenta su probabilidad de suicidio un 25%.</li>
-        <li><strong>El Xokas:</strong> Puede predecir la acción del rival (se muestra en pantalla).</li>
-        <li><strong>Rajoy:</strong> Muy resistente, pocas balas.</li>
-        <li><strong>Amongolito:</strong> No puede suicidarse y dispone de la acción “sus” contra suicidios.</li>
+        <li><strong>El Xokas:</strong> Tiene alta probabilidad de predecir la acción rival (se muestra en pantalla).</li>
+        <li><strong>Rajoy:</strong> Muy resistente, pero con pocas balas.</li>
+        <li><strong>Amongolito:</strong> No puede suicidarse y dispone de la acción "sus" contra suicidios.</li>
       </ul>
       <p><strong>Mecánica del Combate:</strong> Cada turno, el jugador activo elige entre:</p>
       <ul>
-        <li><strong>Disparar</strong> (requiere bala),</li>
-        <li><strong>Recargar</strong> (si no se tienen balas máximas),</li>
-        <li><strong>Defender</strong> (salvo Manueh),</li>
-        <li><strong>Suicidarse</strong> (no para Amongolito),</li>
-        <li><strong>Sus</strong> (solo Amongolito, defiende contra suicidios).</li>
+        <li><strong>Disparar:</strong> Requiere bala; si el oponente no se defiende, recibe daño.</li>
+        <li><strong>Recargar:</strong> Suma una bala (si no se tiene el máximo).</li>
+        <li><strong>Defender:</strong> Protege contra ataques (no disponible para Manueh).</li>
+        <li><strong>Suicidarse:</strong> Disponible para la mayoría (excepto Amongolito), con efectos especiales.</li>
+        <li><strong>Sus (Amongolito):</strong> Actúa como defensa contra suicidios; si se activa y el oponente se suicida, Amongolito gana el turno.</li>
       </ul>
-      <p><strong>Objetivo:</strong> ¡Deja sin salud a tu oponente o haz uso de tus habilidades para sobrevivir hasta ganar!</p>
+      <p><strong>Objetivo:</strong> Reducir la salud del oponente a 0 o hacer que se suicide.</p>
       <div class="modal-buttons">
         <button id="btn-close-guide">Cerrar Guía</button>
       </div>
     </div>
   </div>
-
+  
   <!-- Botón fijo para abrir la GUÍA -->
   <button id="btn-guide">GUÍA</button>
-
+  
   <script>
     /*************************************
      * EVENTOS DEL MODAL DE PERSONAJE
@@ -326,8 +229,7 @@
       hideCharacterModal();
       selectCharacterConfirmed(currentModalCharacter);
     }
-
-    // Asignar event listeners a los botones del modal de personaje
+    
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('btn-confirm-character').addEventListener('click', confirmCharacterSelection);
       document.getElementById('btn-cancel-character').addEventListener('click', hideCharacterModal);
@@ -351,43 +253,43 @@
     let nickname = "";
     let opponentNickname = "";
     let isHost = false;
-    let playerIndex = 1; // 1 o 2, asignado por el servidor
+    let playerIndex = 1; // Asignado por el servidor: 1 o 2
 
     /*************************************
      * DATOS Y ESTADO DEL JUEGO
      *************************************/
     const characters = {
-      "Pepe": {
-        image: "pepe.png",
-        initialBullets: 2,
-        description: "Equilibrado y sencillo, sin mecánicas especiales."
+      "Pepe": { 
+        image: "pepe.png", 
+        initialBullets: 2, 
+        description: "Equilibrado y sencillo, sin mecánicas especiales." 
       },
-      "Manueh": {
-        image: "manueh.png",
-        initialBullets: 3,
-        description: "Tiene más balas pero no puede defender; ideal para ataques directos."
+      "Manueh": { 
+        image: "manueh.png", 
+        initialBullets: 3, 
+        description: "Tiene más balas pero no puede defender; ideal para ataques directos." 
       },
-      "Kurt Cobain": {
-        image: "kurtcobain.png",
-        initialBullets: 4,
-        suicideChance: 0.25,
-        description: "Tiene más balas y cada disparo aumenta su probabilidad de suicidio en un 25%."
+      "Kurt Cobain": { 
+        image: "kurtcobain.png", 
+        initialBullets: 4, 
+        suicideChance: 0.25,  
+        description: "Cada disparo aumenta su probabilidad de suicidio un 25%." 
       },
-      "El Xokas": {
-        image: "xokas.png",
-        initialBullets: 1,
-        predictChance: 1,
-        description: "Experto en trucos con cigarros, ¿qué más quieres?"
+      "El Xokas": { 
+        image: "xokas.png", 
+        initialBullets: 1, 
+        predictChance: 1, 
+        description: "Experto en predecir la acción rival." 
       },
-      "Rajoy": {
-        image: "rajoy.png",
-        initialBullets: 1,
-        description: "Resistente, con capacidad para defender varias veces, pero con pocas balas."
+      "Rajoy": { 
+        image: "rajoy.png", 
+        initialBullets: 1, 
+        description: "Muy resistente, con pocas balas." 
       },
-      "Amongolito": {
-        image: "amongolito.png",
-        initialBullets: 2,
-        description: "No puede suicidarse y tiene la acción 'sus' para protegerse de suicidios."
+      "Amongolito": { 
+        image: "amongolito.png", 
+        initialBullets: 2, 
+        description: "No puede suicidarse; dispone de la acción 'sus'." 
       }
     };
 
@@ -397,7 +299,6 @@
     let player2Character = "";
     let turnActions = { 1: null, 2: null };
     let gameOver = false;
-
     let iaExperience = 0;
     let botDefensiveBias = 0;
     const initialHealth = 3;
@@ -458,7 +359,6 @@
       currentPlayer = 1;
       showCharacterSelection();
     });
-    // Modo Online
     document.getElementById('btn-online').addEventListener('click', () => {
       gameMode = "online";
       nickname = prompt("Ingresa tu nickname para el modo online:");
@@ -469,14 +369,12 @@
       if (!roomId) {
         roomId = Math.random().toString(36).substring(2, 8);
         isHost = true;
-        // Actualiza la URL con la sala
         window.history.replaceState({}, '', window.location.pathname + '?room=' + roomId);
       } else {
         isHost = false;
       }
       socket = io('http://localhost:3000');
       socket.emit('joinOnlineGame', { room: roomId, nickname });
-
       socket.on('roomFull', (data) => {
         alert(data.message);
         showView('main-menu');
@@ -485,11 +383,11 @@
         console.log("Te uniste a la sala:", data.room);
       });
       socket.on('roomReady', (data) => {
-        alert(data.message); // "Dos jugadores en la sala. Elijan sus personajes."
+        alert(data.message);
         showCharacterSelection();
       });
       socket.on('onlineGameStarted', (data) => {
-        playerIndex = data.playerIndex; // 1 o 2
+        playerIndex = data.playerIndex;
         opponentNickname = data.opponentNickname;
         player1Character = data.player1Char;
         player2Character = data.player2Char;
@@ -499,13 +397,11 @@
         if (data.nickname !== nickname) {
           let remoteIndex = (playerIndex === 1) ? 2 : 1;
           turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
-          // Si ya tenemos nuestras dos acciones, resolvemos
           if (turnActions[playerIndex] && turnActions[remoteIndex]) {
             resolveTurnOnline();
           }
         }
       });
-
       showView('main-menu');
     });
     document.getElementById('btn-toggle-menu-music').addEventListener('click', function() {
@@ -529,10 +425,8 @@
     /*************************************
      * EVENTOS DE RESULTADO
      *************************************/
-    // Botones de la pantalla final
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('btn-restart-game').addEventListener('click', () => {
-        // Reinicia la partida con los mismos personajes
         if (gameMode === "online") {
           startCombatOnline();
         } else {
@@ -541,6 +435,10 @@
       });
       document.getElementById('btn-choose-character').addEventListener('click', () => {
         showCharacterSelection();
+      });
+      // Botón para volver al menú principal desde el resultado
+      document.getElementById('btn-return-menu').addEventListener('click', () => {
+        showView('main-menu');
       });
     });
 
@@ -558,10 +456,8 @@
       for (const name in characters) {
         const card = document.createElement('div');
         card.classList.add('character-card');
-        card.innerHTML = `
-          <img src="${characters[name].image}" alt="${name}">
-          <p>${name}</p>
-        `;
+        card.innerHTML = `<img src="${characters[name].image}" alt="${name}">
+                          <p>${name}</p>`;
         card.addEventListener('click', () => showCharacterModal(name));
         list.appendChild(card);
       }
@@ -583,23 +479,17 @@
           startCombatLocal();
         }
       } else if (gameMode === "online") {
-        socket.emit('characterSelected', {
-          room: roomId,
-          nickname,
-          character: name
-        });
-        showView('main-menu'); // Espera a onlineGameStarted
+        socket.emit('characterSelected', { room: roomId, nickname, character: name });
+        showView('main-menu');
       }
     }
 
     /*************************************
-     * COMBATE LOCAL
+     * COMBATE LOCAL (VS IA / DUEL)
      *************************************/
     function startCombatLocal() {
       gameOver = false;
-      if (gameMode === "vs_ai") {
-        iaExperience++;
-      }
+      if (gameMode === "vs_ai") { iaExperience++; }
       player1 = createPlayer(player1Character);
       player2 = createPlayer(player2Character);
       turnActions = { 1: null, 2: null };
@@ -620,7 +510,8 @@
       player1 = createPlayer(player1Character, nickname);
       player2 = createPlayer(player2Character, opponentNickname);
       turnActions = { 1: null, 2: null };
-      currentPlayer = playerIndex; // El local inicia si es 1, el remoto si es 2
+      // El turno inicial es el del jugador local según playerIndex
+      currentPlayer = playerIndex;
       updateScoreboard();
       updateCurrentTurnInfo();
       updateBackgroundMusic("combat");
@@ -628,7 +519,7 @@
       showView('combat');
       document.getElementById('combat-result').textContent = "";
     }
-
+    
     function createPlayer(characterName, customName) {
       return {
         name: customName || characterName,
@@ -642,13 +533,12 @@
     }
 
     /*************************************
-     * UI DE COMBATE (INFORMACIÓN)
+     * UI DE COMBATE: Scoreboard y Turno
      *************************************/
     function updateScoreboard() {
       document.getElementById('player1-name').textContent = player1.name;
       document.getElementById('player1-health').textContent = player1.health;
       document.getElementById('player1-bullets').textContent = player1.bullets;
-
       document.getElementById('player2-name').textContent = player2.name;
       document.getElementById('player2-health').textContent = player2.health;
       document.getElementById('player2-bullets').textContent = player2.bullets;
@@ -658,7 +548,6 @@
       document.getElementById('turn-header').textContent = "TURNO DE " + current.name;
       document.getElementById('current-turn-img').src = characters[current.character].image;
       document.getElementById('current-turn-info').textContent = `Balas: ${current.bullets} | Health: ${current.health}`;
-
       if (current.character === "El Xokas") {
         updatePrediction();
       } else {
@@ -669,15 +558,9 @@
       const predictionEl = document.getElementById('prediction');
       const opponent = (currentPlayer === 1) ? player2 : player1;
       const allowed = [];
-      if (opponent.bullets > 0) {
-        allowed.push("disparar");
-      }
-      if (opponent.bullets < characters[opponent.character].initialBullets) {
-        allowed.push("recargar");
-      }
-      if (opponent.lastAction !== "defender") {
-        allowed.push("defender");
-      }
+      if (opponent.bullets > 0) allowed.push("disparar");
+      if (opponent.bullets < characters[opponent.character].initialBullets) allowed.push("recargar");
+      if (opponent.lastAction !== "defender") allowed.push("defender");
       if (!allowed.length) {
         predictionEl.textContent = "Sin acciones para predecir.";
         return;
@@ -692,65 +575,37 @@
     function showCombatOptionsOnline() {
       const container = document.getElementById('action-buttons');
       container.innerHTML = "";
-
+      // Solo se muestran botones si es tu turno (según playerIndex)
       if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
-        // Es mi turno
         const current = (currentPlayer === 1) ? player1 : player2;
         const allowedActions = [];
-        if (current.bullets > 0) {
-          allowedActions.push("disparar");
-        }
-        if (current.bullets > 0 && current.character !== "Amongolito") {
-          allowedActions.push("suicidarse");
-        }
-        if (current.bullets < characters[current.character].initialBullets) {
-          allowedActions.push("recargar");
-        }
-        // Manueh no puede defender
-        if (current.lastAction !== "defender" && current.character !== "Manueh") {
-          allowedActions.push("defender");
-        }
-        if (current.character === "Amongolito") {
-          allowedActions.push("sus");
-        }
+        if (current.bullets > 0) allowedActions.push("disparar");
+        if (current.bullets > 0 && current.character !== "Amongolito") allowedActions.push("suicidarse");
+        if (current.bullets < characters[current.character].initialBullets) allowedActions.push("recargar");
+        if (current.lastAction !== "defender" && current.character !== "Manueh") allowedActions.push("defender");
+        if (current.character === "Amongolito") allowedActions.push("sus");
 
         allowedActions.forEach(action => {
           const btn = document.createElement('button');
           btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
           btn.addEventListener('click', () => {
-            // Limitar a una acción por turno
-            if (turnActions[playerIndex] !== null) return;
-
+            if (turnActions[playerIndex] !== null) return; // Solo una acción por turno
             if (current.character === "Kurt Cobain" && action === "disparar") {
               current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
               if (Math.random() < current.currentSuicideChance) {
                 turnActions[playerIndex] = { action: "suicidarse", bulletsSpent: 1 };
                 container.innerHTML = "Esperando acción del oponente...";
-                socket.emit('playerAction', {
-                  room: roomId,
-                  nickname,
-                  action: "suicidarse",
-                  bulletsSpent: 1,
-                  playerIndex
-                });
+                socket.emit('playerAction', { room: roomId, nickname, action: "suicidarse", bulletsSpent: 1, playerIndex });
                 return;
               }
             }
-
             turnActions[playerIndex] = { action, bulletsSpent: 1 };
             container.innerHTML = "Esperando acción del oponente...";
-            socket.emit('playerAction', {
-              room: roomId,
-              nickname,
-              action,
-              bulletsSpent: 1,
-              playerIndex
-            });
+            socket.emit('playerAction', { room: roomId, nickname, action, bulletsSpent: 1, playerIndex });
           });
           container.appendChild(btn);
         });
       } else {
-        // Turno del otro
         container.textContent = "Esperando acción del oponente...";
       }
     }
@@ -761,32 +616,19 @@
     function showCombatOptions() {
       const container = document.getElementById('action-buttons');
       container.innerHTML = "";
-
       const current = (currentPlayer === 1) ? player1 : player2;
       const allowedActions = [];
-      if (current.bullets > 0) {
-        allowedActions.push("disparar");
-      }
-      if (current.bullets > 0 && current.character !== "Amongolito") {
-        allowedActions.push("suicidarse");
-      }
-      if (current.bullets < characters[current.character].initialBullets) {
-        allowedActions.push("recargar");
-      }
-      // Manueh no puede defender
-      if (current.lastAction !== "defender" && current.character !== "Manueh") {
-        allowedActions.push("defender");
-      }
-      if (current.character === "Amongolito") {
-        allowedActions.push("sus");
-      }
-
+      if (current.bullets > 0) allowedActions.push("disparar");
+      if (current.bullets > 0 && current.character !== "Amongolito") allowedActions.push("suicidarse");
+      if (current.bullets < characters[current.character].initialBullets) allowedActions.push("recargar");
+      if (current.lastAction !== "defender" && current.character !== "Manueh") allowedActions.push("defender");
+      if (current.character === "Amongolito") allowedActions.push("sus");
+      
       allowedActions.forEach(action => {
         const btn = document.createElement('button');
         btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
         btn.addEventListener('click', () => {
           if (turnActions[currentPlayer] !== null) return;
-
           if (current.character === "Kurt Cobain" && action === "disparar") {
             current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
             if (Math.random() < current.currentSuicideChance) {
@@ -801,12 +643,10 @@
     }
 
     /*************************************
-     * LÓGICA DE ENVÍO DE ACCIONES (LOCAL)
+     * ENVÍO DE ACCIÓN (LOCAL)
      *************************************/
     function submitAction(actionObj) {
       turnActions[currentPlayer] = actionObj;
-
-      // Si es duelo local
       if (gameMode === "duel") {
         if (currentPlayer === 1) {
           currentPlayer = 2;
@@ -816,21 +656,18 @@
           resolveTurn();
         }
       } else if (gameMode === "vs_ai") {
-        // Jugador 1 hace su acción, IA responde
         botChooseAction();
       }
     }
 
     /*************************************
-     * RESOLUCIÓN DE TURNOS
+     * RESOLUCIÓN DE TURNOS (LOCAL y ONLINE)
      *************************************/
     function resolveTurn() {
       const a1Obj = turnActions[1];
       const a2Obj = turnActions[2];
-      const a1 = a1Obj.action;
-      const a2 = a2Obj.action;
-      const b1 = a1Obj.bulletsSpent;
-      const b2 = a2Obj.bulletsSpent;
+      const a1 = a1Obj.action, a2 = a2Obj.action;
+      const b1 = a1Obj.bulletsSpent, b2 = a2Obj.bulletsSpent;
       let outcomeMessage = "";
 
       // Descontar balas
@@ -841,10 +678,9 @@
         player2.bullets = Math.max(0, player2.bullets - b2);
       }
 
-      // Comprobar suicidios y Amongolito
+      // Manejo de suicidios y Amongolito
       outcomeMessage = handleSuicidesAndAmongolito(a1, a2);
 
-      // Si no ha terminado la partida, revisar disparos, recargas, defensas
       if (!gameOver) {
         outcomeMessage += handleShotsAndRecargas(a1, a2);
       }
@@ -854,7 +690,7 @@
       updateScoreboard();
       document.getElementById('combat-result').textContent = outcomeMessage;
 
-      // Comprobar si alguien murió
+      // Comprobar muerte
       if (player1.health <= 0 || player2.health <= 0) {
         gameOver = true;
         outcomeMessage = handleDeath(outcomeMessage);
@@ -862,14 +698,9 @@
       }
 
       if (gameOver) {
-        // Ajuste final para Kurt Cobain
-        if (player1.character === "Kurt Cobain") {
-          player1.currentSuicideChance = 0.25;
-        }
-        if (player2.character === "Kurt Cobain") {
-          player2.currentSuicideChance = 0.25;
-        }
-        // Ajustes finales para IA
+        if (player1.character === "Kurt Cobain") player1.currentSuicideChance = 0.25;
+        if (player2.character === "Kurt Cobain") player2.currentSuicideChance = 0.25;
+        // En modo vs_ai, ajustar experiencia
         if (gameMode === "vs_ai") {
           iaExperience++;
           if (outcomeMessage.includes(player1.name)) {
@@ -878,16 +709,12 @@
             botDefensiveBias = Math.max(botDefensiveBias - 1, 0);
           }
         }
-        // Mostrar el resultado 2 segundos extra => 3500 ms
-        setTimeout(() => {
-          showResult(outcomeMessage);
-        }, 3500);
+        // Mostrar resultado final durante 3.5 s y luego ir a pantalla de resultado
+        setTimeout(() => { showResult(outcomeMessage); }, 3500);
       } else {
-        // Nadie ha muerto, siguiente turno
+        // Reiniciar acciones y alternar turno
         turnActions = { 1: null, 2: null };
-
         if (gameMode === "online") {
-          // Alternar
           currentPlayer = (currentPlayer === 1) ? 2 : 1;
         } else {
           currentPlayer = 1;
@@ -895,13 +722,12 @@
         player1.defenseActive = false;
         player2.defenseActive = false;
         updateCurrentTurnInfo();
-
         if (gameMode === "online") {
           showCombatOptionsOnline();
         } else {
           showCombatOptions();
         }
-        // Mantener el mensaje de resolución 2 segundos más => 3500 ms
+        // Mantener el mensaje de resolución 3.5 s y luego limpiar
         setTimeout(() => {
           document.getElementById('combat-result').textContent = "";
         }, 3500);
@@ -980,8 +806,8 @@
       }
       return msg;
     }
-    function handleDeath(prevMessage) {
-      let msg = prevMessage;
+    function handleDeath(prevMsg) {
+      let msg = prevMsg;
       if (player1.health <= 0 && player2.health <= 0) {
         msg = "¡Ambos han caído! Empate.";
       } else if (player1.health <= 0) {
@@ -1002,12 +828,10 @@
     }
 
     /*************************************
-     * BOT IA (VS IA)
+     * BOTÓN DE ACCIÓN DE LA IA (VS IA)
      *************************************/
     function botChooseAction() {
-      if (turnActions[1].action === "disparar" &&
-          player2.bullets > 0 &&
-          player2.lastAction !== "defender") {
+      if (turnActions[1].action === "disparar" && player2.bullets > 0 && player2.lastAction !== "defender") {
         let p = Math.min(1, botDefensiveBias / 10);
         if (Math.random() < p) {
           turnActions[2] = { action: "defender", bulletsSpent: 1 };
@@ -1021,27 +845,19 @@
       } else if (difficulty === "medium") {
         if (player2.bullets > 0) {
           const weight = 2 + Math.floor(iaExperience / 5);
-          for (let i = 0; i < weight; i++) {
-            possibleActions.push("disparar");
-          }
+          for (let i = 0; i < weight; i++) possibleActions.push("disparar");
         }
         possibleActions.push("recargar", "defender");
-        if (Math.random() < 0.1) {
-          possibleActions.push("suicidarse");
-        }
+        if (Math.random() < 0.1) possibleActions.push("suicidarse");
       } else if (difficulty === "hard") {
         if (player2.bullets > 0) {
           const weight = 3 + Math.floor(iaExperience / 3);
-          for (let i = 0; i < weight; i++) {
-            possibleActions.push("disparar");
-          }
+          for (let i = 0; i < weight; i++) possibleActions.push("disparar");
         } else {
           possibleActions.push("recargar", "recargar");
         }
         possibleActions.push("defender");
-        if (Math.random() < 0.05) {
-          possibleActions.push("suicidarse");
-        }
+        if (Math.random() < 0.05) possibleActions.push("suicidarse");
       }
       const action = possibleActions[Math.floor(Math.random() * possibleActions.length)];
       turnActions[2] = { action, bulletsSpent: 1 };
@@ -1051,8 +867,8 @@
     /*************************************
      * PANTALLA DE RESULTADO
      *************************************/
-    function showResult(message) {
-      document.getElementById('result-message').textContent = message;
+    function showResult(msg) {
+      document.getElementById('result-message').textContent = msg;
       showView('result');
     }
 
@@ -1075,5 +891,6 @@
   </script>
 </body>
 </html>
+
 
 
