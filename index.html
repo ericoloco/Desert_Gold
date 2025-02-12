@@ -165,7 +165,8 @@
     <!-- PANTALLA DE RESULTADO -->
     <div id="result" class="view">
       <h2 id="result-message"></h2>
-      <button id="btn-return-main">Volver al Menú Principal</button>
+      <button id="btn-restart-game">Reiniciar Partida</button>
+      <button id="btn-choose-character">Volver a Elegir Personaje</button>
     </div>
   </div>
   
@@ -206,7 +207,7 @@
       <ul>
         <li><strong>Disparar:</strong> Requiere una bala. Si el oponente no se defiende, recibe daño.</li>
         <li><strong>Recargar:</strong> Suma una bala (si no se tiene el máximo).</li>
-        <li><strong>Defender:</strong> Protege contra ataques en ese turno.</li>
+        <li><strong>Defender:</strong> Protege contra ataques en ese turno (no disponible para Manueh).</li>
         <li><strong>Suicidarse:</strong> Disponible para la mayoría (excepto Amongolito), con efectos especiales según el rival.</li>
         <li><strong>Sus (Amongolito):</strong> Actúa como defensa contra suicidios del rival. Si se activa y el oponente se suicida, Amongolito se protege y gana el turno.</li>
       </ul>
@@ -435,6 +436,24 @@
     document.getElementById('btn-return-main').addEventListener('click', () => { showView('main-menu'); });
 
     /*************************************
+     * EVENTOS DE RESULTADO
+     *************************************/
+    // Asignar event listeners para reiniciar partida o volver a elegir personaje
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btn-restart-game').addEventListener('click', () => {
+        // Reiniciar la partida con los mismos personajes
+        if (gameMode === "online") {
+          startCombatOnline();
+        } else {
+          startCombatLocal();
+        }
+      });
+      document.getElementById('btn-choose-character').addEventListener('click', () => {
+        showCharacterSelection();
+      });
+    });
+
+    /*************************************
      * SELECCIÓN DE PERSONAJES
      *************************************/
     function showCharacterSelection() {
@@ -536,7 +555,7 @@
         currentSuicideChance: (player2Character === "Kurt Cobain") ? 0.25 : 0
       };
       turnActions = { 1: null, 2: null };
-      // En modo online, se asume que el turno inicial es el del jugador local (según playerIndex)
+      // En modo online, el turno inicial es el del jugador local (según playerIndex)
       currentPlayer = playerIndex;
       updateScoreboard();
       updateCurrentTurnInfo();
@@ -595,7 +614,8 @@
         if (current.bullets > 0) { allowedActions.push("disparar"); }
         if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
         if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
-        if (current.lastAction !== "defender") { allowedActions.push("defender"); }
+        // Eliminamos la opción "defender" si el personaje es Manueh
+        if (current.lastAction !== "defender" && current.character !== "Manueh") { allowedActions.push("defender"); }
         // Añadir acción "sus" para Amongolito
         if (current.character === "Amongolito") { allowedActions.push("sus"); }
         
@@ -648,7 +668,7 @@
       if (current.bullets > 0) { allowedActions.push("disparar"); }
       if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
       if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
-      if (current.lastAction !== "defender") { allowedActions.push("defender"); }
+      if (current.lastAction !== "defender" && current.character !== "Manueh") { allowedActions.push("defender"); }
       if (current.character === "Amongolito") { allowedActions.push("sus"); }
       allowedActions.forEach(action => {
         const btn = document.createElement('button');
@@ -894,5 +914,4 @@
   </script>
 </body>
 </html>
-
 
