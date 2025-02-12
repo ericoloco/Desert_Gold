@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> <base href="./">
+<head>
   <meta charset="UTF-8">
-  <!-- La etiqueta base indica que las rutas relativas se resuelven desde la misma carpeta -->
+  <!-- La etiqueta base hace que todas las rutas relativas se resuelvan desde la misma carpeta -->
   <base href="./">
+  <!-- Adaptable a dispositivos móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Desert Gold</title>
   <style>
@@ -33,7 +34,7 @@
     #main-menu, #character-selection, #result { text-align: center; padding: 1rem; }
     /* COMBATE */
     #combat { padding: 1rem; }
-    /* Scoreboard */
+    /* Scoreboard: muestra el nombre, salud y balas */
     #scoreboard {
       display: flex; justify-content: space-around; margin-bottom: 1rem; font-weight: bold;
     }
@@ -142,7 +143,7 @@
     /*************************************
      * DATOS Y ESTADO DEL JUEGO
      *************************************/
-    // Las imágenes y audio se encuentran en la misma carpeta que index.html
+    // Todas las imágenes y archivos de audio están en la misma carpeta que index.html
     const characters = {
       "Pepe": { 
         image: "Pepe.png", 
@@ -200,7 +201,7 @@
      *************************************/
     const bgMusic = new Audio();
     bgMusic.loop = true;
-    // Al cargar la página se inicia la música del menú principal.
+    // Inicia la música del menú principal al cargar la página
     window.addEventListener('load', () => {
       playMusic("background_inicio.mp3");
     });
@@ -210,12 +211,12 @@
       bgMusic.load();
       bgMusic.play().catch(err => { console.log("Autoplay bloqueado:", err); });
     }
-    // Para mantener la música del menú durante el menú y la selección, no la reiniciamos en character-selection.
+    // La función updateBackgroundMusic diferencia vistas:
     function updateBackgroundMusic(viewId) {
       if (viewId === 'main-menu') {
         playMusic("background_inicio.mp3");
       } else if (viewId === 'character-selection') {
-        // Si ya se está reproduciendo background_inicio.mp3, no se hace nada.
+        // En la selección de personajes, se mantiene la música del menú
         if (bgMusic.src.indexOf("background_inicio.mp3") === -1) {
           playMusic("background_inicio.mp3");
         }
@@ -241,7 +242,7 @@
      * BOTÓN PARA PAUSAR/REANUDAR MÚSICA DEL MENÚ
      *************************************/
     document.getElementById('btn-toggle-menu-music').addEventListener('click', function() {
-      // Solo actuamos si estamos en el menú principal.
+      // Solo actuamos si estamos en el menú principal
       if (document.getElementById('main-menu').classList.contains('active')) {
         if (bgMusic.paused) {
           bgMusic.play();
@@ -277,7 +278,6 @@
      * SELECCIÓN DE PERSONAJES
      *************************************/
     function showCharacterSelection() {
-      // Mostrar la vista de selección sin cambiar la música (la música del menú continuará)
       showView('character-selection');
       const header = document.getElementById('selection-header');
       header.textContent = (gameMode === "vs_ai")
@@ -340,7 +340,7 @@
       currentPlayer = 1;
       updateScoreboard();
       updateCurrentTurnInfo();
-      // Al iniciar el combate, se cambia a música de combate.
+      // Al iniciar el combate, cambiamos a música de combate.
       updateBackgroundMusic("combat");
       showCombatOptions();
       showView('combat');
@@ -447,7 +447,7 @@
         outcomeMessage = player1.name + " gana, porque Amongolito se asustó y murió al ver el suicidio.";
         gameOver = true;
       }
-      // Resolver suicidios:
+      // Resolver acciones de suicidio:
       else if(a1 === "suicidarse" && a2 === "suicidarse") {
         outcomeMessage = "Ambos se suicidaron. ¡Empate!";
         gameOver = true;
