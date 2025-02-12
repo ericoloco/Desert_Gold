@@ -414,6 +414,7 @@
         if (data.nickname !== nickname) {
           let remoteIndex = (playerIndex === 1) ? 2 : 1;
           turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
+          // Cuando ambos tienen acción, resolver turno
           if (turnActions[playerIndex] && turnActions[remoteIndex]) {
             resolveTurnOnline();
           }
@@ -614,7 +615,7 @@
         if (current.bullets > 0) { allowedActions.push("disparar"); }
         if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
         if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
-        // Eliminamos la opción "defender" si el personaje es Manueh
+        // Eliminamos "defender" para Manueh
         if (current.lastAction !== "defender" && current.character !== "Manueh") { allowedActions.push("defender"); }
         // Añadir acción "sus" para Amongolito
         if (current.character === "Amongolito") { allowedActions.push("sus"); }
@@ -817,7 +818,8 @@
             botDefensiveBias = Math.max(botDefensiveBias - 1, 0);
           }
         }
-        setTimeout(() => { showResult(outcomeMessage); }, 1500);
+        // Mostrar el resultado 2 segundos más (3500 ms) antes de pasar a la pantalla de resultado
+        setTimeout(() => { showResult(outcomeMessage); }, 3500);
       } else {
         turnActions = { 1: null, 2: null };
         // En modo online, alterna el turno; en local, reinicia a 1.
@@ -833,9 +835,10 @@
         } else {
           showCombatOptions();
         }
+        // Mantener el mensaje de resolución 2 segundos más
         setTimeout(() => {
           document.getElementById('combat-result').textContent = "";
-        }, 1500);
+        }, 3500);
       }
     }
 
@@ -843,10 +846,9 @@
      * RESOLUCIÓN DEL TURNO (ONLINE)
      *************************************/
     function resolveTurnOnline() {
+      // Si ambos jugadores ya tienen acción, resolver sin alertar
       if (turnActions[1] && turnActions[2]) {
         resolveTurn();
-      } else {
-        alert("Esperando acción del oponente en modo online...");
       }
     }
 
