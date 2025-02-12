@@ -409,14 +409,16 @@
         player2Character = data.player2Char;
         startCombatOnline();
       });
-      socket.on('receivePlayerAction', (data) => {
-        if (data.nickname !== nickname) {
-          turnActions[2] = { action: data.action, bulletsSpent: data.bulletsSpent };
-          if (turnActions[1]) {
-            resolveTurnOnline();
-          }
-        }
-      });
+     socket.on('receivePlayerAction', (data) => {
+  if (data.nickname !== nickname) {
+    // Determinar el índice opuesto
+    let remoteIndex = (playerIndex === 1) ? 2 : 1;
+    turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
+    if (turnActions[playerIndex] && turnActions[remoteIndex]) {
+      resolveTurnOnline();
+    }
+  }
+});
       showView('main-menu'); // Mostrar pantalla de espera o similar
     });
     document.getElementById('btn-toggle-menu-music').addEventListener('click', function() {
@@ -500,8 +502,12 @@
         lastAction: null,
         currentSuicideChance: (player2Character === "Kurt Cobain") ? 0.25 : 0
       };
-      turnActions = { 1: null, 2: null };
-      currentPlayer = 1;
+     turnActions = { 1: null, 2: null };
+if (gameMode === "online") {
+  currentPlayer = (currentPlayer === 1) ? 2 : 1;
+} else {
+  currentPlayer = 1;
+}
       updateScoreboard();
       updateCurrentTurnInfo();
       updateBackgroundMusic("combat");
@@ -582,52 +588,56 @@
     /*************************************
      * OPCIONES DE COMBATE (ONLINE)
      *************************************/
-    function showCombatOptionsOnline() {
-      const container = document.getElementById('action-buttons');
-      container.innerHTML = "";
-      // Mostrar botones solo si es el turno del jugador local (según playerIndex)
-      if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
-        const current = (currentPlayer === 1) ? player1 : player2;
-        const allowedActions = [];
-        if (current.bullets > 0) { allowedActions.push("disparar"); }
-        if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
-        if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
-        if (current.lastAction !== "defender") { allowedActions.push("defender"); }
-        // Añadir acción "sus" para Amongolito
-        if (current.character === "Amongolito") { allowedActions.push("sus"); }
-        allowedActions.forEach(action => {
-          const btn = document.createElement('button');
-          btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
-          btn.addEventListener('click', () => {
-            if (current.character === "Kurt Cobain" && action === "disparar") {
-              current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
-              if (Math.random() < current.currentSuicideChance) {
-                turnActions[1] = { action: "suicidarse", bulletsSpent: 1 };
-                socket.emit('playerAction', { 
-                  room: roomId, 
-                  nickname,
-                  action: "suicidarse",
-                  bulletsSpent: 1,
-                  playerIndex 
-                });
-                return;
-              }
-            }
-            turnActions[1] = { action: action, bulletsSpent: 1 };
+function showCombatOptionsOnline() {
+  const container = document.getElementById('action-buttons');
+  container.innerHTML = "";
+  // Solo se muestran botones si es tu turno (según playerIndex)
+  if ((playerIndex === 1 && currentPlayer === 1) || (playerIndex === 2 && currentPlayer === 2)) {
+    const current = (currentPlayer === 1) ? player1 : player2;
+    const allowedActions = [];
+    if (current.bullets > 0) { allowedActions.push("disparar"); }
+    if (current.bullets > 0 && current.character !== "Amongolito") { allowedActions.push("suicidarse"); }
+    if (current.bullets < characters[current.character].initialBullets) { allowedActions.push("recargar"); }
+    if (current.lastAction !== "defender") { allowedActions.push("defender"); }
+    // Si el personaje es Amongolito, añade la acción "sus"
+    if (current.character === "Amongolito") { allowedActions.push("sus"); }
+    
+    allowedActions.forEach(action => {
+      const btn = document.createElement('button');
+      btn.textContent = action.charAt(0).toUpperCase() + action.slice(1);
+      btn.addEventListener('click', () => {
+        // Si el personaje es Kurt Cobain y la acción es disparar, aplica su lógica especial
+        if (current.character === "Kurt Cobain" && action === "disparar") {
+          current.currentSuicideChance = Math.min(1, current.currentSuicideChance + 0.25);
+          if (Math.random() < current.currentSuicideChance) {
+            turnActions[playerIndex] = { action: "suicidarse", bulletsSpent: 1 };
             socket.emit('playerAction', { 
               room: roomId, 
               nickname,
-              action,
+              action: "suicidarse",
               bulletsSpent: 1,
-              playerIndex
+              playerIndex 
             });
-          });
-          container.appendChild(btn);
+            return;
+          }
+        }
+        // Guarda la acción usando el índice correcto (playerIndex)
+        turnActions[playerIndex] = { action: action, bulletsSpent: 1 };
+        socket.emit('playerAction', { 
+          room: roomId, 
+          nickname,
+          action: action,
+          bulletsSpent: 1,
+          playerIndex
         });
-      } else {
-        container.textContent = "Esperando acción del oponente...";
-      }
-    }
+      });
+      container.appendChild(btn);
+    });
+  } else {
+    container.textContent = "Esperando acción del oponente...";
+  }
+}
+
 
     /*************************************
      * OPCIONES DE COMBATE (LOCAL)
