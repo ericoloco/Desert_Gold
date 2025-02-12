@@ -1,0 +1,1289 @@
+{
+  "Version": 1,
+  "Hash": "a7lrtk7t5OVWXxxDe24ebI2mGZlrJfLU2VD3xmeD2pI=",
+  "Source": "DesertGoldWeb",
+  "BasePath": "_content/DesertGoldWeb",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "DesertGoldWeb\\wwwroot",
+      "Source": "DesertGoldWeb",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\obj\\Debug\\net9.0\\compressed\\7kqo8hjipk-8zipnoduod.gz",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "index#[.{fingerprint=8zipnoduod}]?.html.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\index.html",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "80f498zr6o",
+      "Integrity": "+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\index.html"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\amongolito.png",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/amongolito#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bwwoju3bhe",
+      "Integrity": "dShlv9RlFpagjb4W83Bxb8/M2m8mEqmct1u5N9T46rA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\amongolito.png"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combat2.mp3",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/background_combat2#[.{fingerprint}]?.mp3",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gpnjre71z9",
+      "Integrity": "xKHlJtNnJzhRI0iyciDKfRYNslKhZelC/pJ4gsCrxWU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\background_combat2.mp3"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combate1.mp3",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/background_combate1#[.{fingerprint}]?.mp3",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ir6w6k7dx3",
+      "Integrity": "PjDVx7hPmy4E0SY3DKKZVAXLkGKd1nrNAsgJcuexXlc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\background_combate1.mp3"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_inicio.mp3",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/background_inicio#[.{fingerprint}]?.mp3",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2i6tnqso2e",
+      "Integrity": "KqX8k+6TD0Z1ZwSJ+S+Gn7gVpgtkZCUaucTKVcO9sXI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\background_inicio.mp3"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\kurt cobain.png",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/kurt cobain#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lap4kmb6ao",
+      "Integrity": "88rMVTCzVC3hMaiMe2PRTAo/OFu7JBCPq9J5Eijzrw8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\kurt cobain.png"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\manueh.png",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/manueh#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bjkgfih46r",
+      "Integrity": "99IWiEeB9TUdTxO9SKdoiiqzU/vjbZcZGBWxhSaC7ys=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\manueh.png"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\pepe.png",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/pepe#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "nx51q01n09",
+      "Integrity": "tQEaNrczirv/JppJMY7SDmcyfHxKcs1xn6tqRjsvHLQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\pepe.png"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\rajoy.png",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/rajoy#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ybkifqma0q",
+      "Integrity": "ktFrkSeODdiNW5qXhNn7Roy3kidtIR4lPIg/IFHjmIQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\rajoy.png"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\xokas.png",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "assests/xokas#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4x8lghclaq",
+      "Integrity": "aBRQNG3ocdRmRr+ZtzkmiTi8qWRHR263C+Zq14up2JM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assests\\xokas.png"
+    },
+    {
+      "Identity": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\index.html",
+      "SourceId": "DesertGoldWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\",
+      "BasePath": "_content/DesertGoldWeb",
+      "RelativePath": "index#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8zipnoduod",
+      "Integrity": "VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "assests/amongolito.bwwoju3bhe.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\amongolito.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6246"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dShlv9RlFpagjb4W83Bxb8/M2m8mEqmct1u5N9T46rA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:47:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bwwoju3bhe"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/amongolito.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-dShlv9RlFpagjb4W83Bxb8/M2m8mEqmct1u5N9T46rA="
+        }
+      ]
+    },
+    {
+      "Route": "assests/amongolito.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\amongolito.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6246"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"dShlv9RlFpagjb4W83Bxb8/M2m8mEqmct1u5N9T46rA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:47:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-dShlv9RlFpagjb4W83Bxb8/M2m8mEqmct1u5N9T46rA="
+        }
+      ]
+    },
+    {
+      "Route": "assests/background_combat2.gpnjre71z9.mp3",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combat2.mp3",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5612217"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xKHlJtNnJzhRI0iyciDKfRYNslKhZelC/pJ4gsCrxWU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 21:23:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gpnjre71z9"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/background_combat2.mp3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xKHlJtNnJzhRI0iyciDKfRYNslKhZelC/pJ4gsCrxWU="
+        }
+      ]
+    },
+    {
+      "Route": "assests/background_combat2.mp3",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combat2.mp3",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5612217"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xKHlJtNnJzhRI0iyciDKfRYNslKhZelC/pJ4gsCrxWU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 21:23:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xKHlJtNnJzhRI0iyciDKfRYNslKhZelC/pJ4gsCrxWU="
+        }
+      ]
+    },
+    {
+      "Route": "assests/background_combate1.ir6w6k7dx3.mp3",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combate1.mp3",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1284233"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PjDVx7hPmy4E0SY3DKKZVAXLkGKd1nrNAsgJcuexXlc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 20:39:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ir6w6k7dx3"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/background_combate1.mp3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-PjDVx7hPmy4E0SY3DKKZVAXLkGKd1nrNAsgJcuexXlc="
+        }
+      ]
+    },
+    {
+      "Route": "assests/background_combate1.mp3",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combate1.mp3",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1284233"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"PjDVx7hPmy4E0SY3DKKZVAXLkGKd1nrNAsgJcuexXlc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 20:39:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-PjDVx7hPmy4E0SY3DKKZVAXLkGKd1nrNAsgJcuexXlc="
+        }
+      ]
+    },
+    {
+      "Route": "assests/background_inicio.2i6tnqso2e.mp3",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_inicio.mp3",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2781588"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KqX8k+6TD0Z1ZwSJ+S+Gn7gVpgtkZCUaucTKVcO9sXI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 20:11:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2i6tnqso2e"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/background_inicio.mp3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KqX8k+6TD0Z1ZwSJ+S+Gn7gVpgtkZCUaucTKVcO9sXI="
+        }
+      ]
+    },
+    {
+      "Route": "assests/background_inicio.mp3",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_inicio.mp3",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2781588"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KqX8k+6TD0Z1ZwSJ+S+Gn7gVpgtkZCUaucTKVcO9sXI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 11 Feb 2025 20:11:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KqX8k+6TD0Z1ZwSJ+S+Gn7gVpgtkZCUaucTKVcO9sXI="
+        }
+      ]
+    },
+    {
+      "Route": "assests/kurt cobain.lap4kmb6ao.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\kurt cobain.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17460"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"88rMVTCzVC3hMaiMe2PRTAo/OFu7JBCPq9J5Eijzrw8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:45:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lap4kmb6ao"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/kurt cobain.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-88rMVTCzVC3hMaiMe2PRTAo/OFu7JBCPq9J5Eijzrw8="
+        }
+      ]
+    },
+    {
+      "Route": "assests/kurt cobain.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\kurt cobain.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "17460"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"88rMVTCzVC3hMaiMe2PRTAo/OFu7JBCPq9J5Eijzrw8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:45:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-88rMVTCzVC3hMaiMe2PRTAo/OFu7JBCPq9J5Eijzrw8="
+        }
+      ]
+    },
+    {
+      "Route": "assests/manueh.bjkgfih46r.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\manueh.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "57736"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"99IWiEeB9TUdTxO9SKdoiiqzU/vjbZcZGBWxhSaC7ys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:48:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bjkgfih46r"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/manueh.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-99IWiEeB9TUdTxO9SKdoiiqzU/vjbZcZGBWxhSaC7ys="
+        }
+      ]
+    },
+    {
+      "Route": "assests/manueh.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\manueh.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "57736"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"99IWiEeB9TUdTxO9SKdoiiqzU/vjbZcZGBWxhSaC7ys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:48:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-99IWiEeB9TUdTxO9SKdoiiqzU/vjbZcZGBWxhSaC7ys="
+        }
+      ]
+    },
+    {
+      "Route": "assests/pepe.nx51q01n09.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\pepe.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16727"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tQEaNrczirv/JppJMY7SDmcyfHxKcs1xn6tqRjsvHLQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nx51q01n09"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/pepe.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-tQEaNrczirv/JppJMY7SDmcyfHxKcs1xn6tqRjsvHLQ="
+        }
+      ]
+    },
+    {
+      "Route": "assests/pepe.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\pepe.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "16727"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tQEaNrczirv/JppJMY7SDmcyfHxKcs1xn6tqRjsvHLQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:44:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-tQEaNrczirv/JppJMY7SDmcyfHxKcs1xn6tqRjsvHLQ="
+        }
+      ]
+    },
+    {
+      "Route": "assests/rajoy.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\rajoy.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "61831"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ktFrkSeODdiNW5qXhNn7Roy3kidtIR4lPIg/IFHjmIQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:44:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ktFrkSeODdiNW5qXhNn7Roy3kidtIR4lPIg/IFHjmIQ="
+        }
+      ]
+    },
+    {
+      "Route": "assests/rajoy.ybkifqma0q.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\rajoy.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "61831"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ktFrkSeODdiNW5qXhNn7Roy3kidtIR4lPIg/IFHjmIQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:44:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ybkifqma0q"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/rajoy.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ktFrkSeODdiNW5qXhNn7Roy3kidtIR4lPIg/IFHjmIQ="
+        }
+      ]
+    },
+    {
+      "Route": "assests/xokas.4x8lghclaq.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\xokas.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aBRQNG3ocdRmRr+ZtzkmiTi8qWRHR263C+Zq14up2JM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:46:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4x8lghclaq"
+        },
+        {
+          "Name": "label",
+          "Value": "assests/xokas.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aBRQNG3ocdRmRr+ZtzkmiTi8qWRHR263C+Zq14up2JM="
+        }
+      ]
+    },
+    {
+      "Route": "assests/xokas.png",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\xokas.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31568"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aBRQNG3ocdRmRr+ZtzkmiTi8qWRHR263C+Zq14up2JM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:46:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aBRQNG3ocdRmRr+ZtzkmiTi8qWRHR263C+Zq14up2JM="
+        }
+      ]
+    },
+    {
+      "Route": "index.8zipnoduod.html",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\obj\\Debug\\net9.0\\compressed\\7kqo8hjipk-8zipnoduod.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000247586036"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4038"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:21:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8zipnoduod"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo="
+        }
+      ]
+    },
+    {
+      "Route": "index.8zipnoduod.html",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18403"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:21:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8zipnoduod"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo="
+        }
+      ]
+    },
+    {
+      "Route": "index.8zipnoduod.html.gz",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\obj\\Debug\\net9.0\\compressed\\7kqo8hjipk-8zipnoduod.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4038"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:21:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8zipnoduod"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\obj\\Debug\\net9.0\\compressed\\7kqo8hjipk-8zipnoduod.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000247586036"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4038"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:21:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18403"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:21:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VFNK8bLCxlIp0UiJB4cw4UkZdI3Js4w83NHCAu0Hojo="
+        }
+      ]
+    },
+    {
+      "Route": "index.html.gz",
+      "AssetFile": "D:\\Desert Gold\\DesertGoldWeb\\obj\\Debug\\net9.0\\compressed\\7kqo8hjipk-8zipnoduod.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4038"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 12 Feb 2025 03:21:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+N1kUuV2xPw74Ex4HAbG6ByhOxR503Q/WhB2XB3G3uI="
+        }
+      ]
+    }
+  ]
+}

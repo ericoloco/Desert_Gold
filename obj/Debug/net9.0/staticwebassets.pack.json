@@ -1,0 +1,65 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\amongolito.png",
+      "PackagePath": "staticwebassets\\assests\\amongolito.png"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combat2.mp3",
+      "PackagePath": "staticwebassets\\assests\\background_combat2.mp3"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_combate1.mp3",
+      "PackagePath": "staticwebassets\\assests\\background_combate1.mp3"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\background_inicio.mp3",
+      "PackagePath": "staticwebassets\\assests\\background_inicio.mp3"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\kurt cobain.png",
+      "PackagePath": "staticwebassets\\assests\\kurt cobain.png"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\manueh.png",
+      "PackagePath": "staticwebassets\\assests\\manueh.png"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\pepe.png",
+      "PackagePath": "staticwebassets\\assests\\pepe.png"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\rajoy.png",
+      "PackagePath": "staticwebassets\\assests\\rajoy.png"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\assests\\xokas.png",
+      "PackagePath": "staticwebassets\\assests\\xokas.png"
+    },
+    {
+      "Id": "D:\\Desert Gold\\DesertGoldWeb\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.DesertGoldWeb.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.DesertGoldWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.DesertGoldWeb.props",
+      "PackagePath": "build\\DesertGoldWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.DesertGoldWeb.props",
+      "PackagePath": "buildMultiTargeting\\DesertGoldWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.DesertGoldWeb.props",
+      "PackagePath": "buildTransitive\\DesertGoldWeb.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
