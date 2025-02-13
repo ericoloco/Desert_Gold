@@ -329,16 +329,25 @@
         player2Character = data.player2Char;
         startCombatOnline();
       });
-      socket.on('receivePlayerAction', (data) => {
-        if (data.nickname !== nickname) {
-          // La acción del oponente se guarda en el índice opuesto
-          let remoteIndex = (playerIndex === 1) ? 2 : 1;
-          turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
-          if (turnActions[playerIndex] && turnActions[remoteIndex]) {
-            resolveTurnOnline();
-          }
-        }
-      });
+  // Evento recibido del servidor para la acción del oponente
+socket.on('receivePlayerAction', (data) => {
+  if (data.nickname !== nickname) {
+    // Calculamos el índice del oponente: si local es 1, el remoto es 2 y viceversa
+    let remoteIndex = (playerIndex === 1) ? 2 : 1;
+    turnActions[remoteIndex] = { action: data.action, bulletsSpent: data.bulletsSpent };
+    // Llamamos a resolveTurnOnline() sin condicional extra,
+    // y dentro de esa función se verifica si ambas acciones están definidas.
+    resolveTurnOnline();
+  }
+});
+
+// Función para resolver el turno en modo online
+function resolveTurnOnline() {
+  // Si ambos turnActions están definidas, se resuelve el turno
+  if (turnActions[1] && turnActions[2]) {
+    resolveTurn();
+  }
+}
       showView('main-menu'); // Mientras se espera, se regresa al menú
     });
     document.getElementById('btn-toggle-menu-music').addEventListener('click', function() {
